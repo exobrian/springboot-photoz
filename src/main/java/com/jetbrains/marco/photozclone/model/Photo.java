@@ -1,4 +1,4 @@
-package com.jetbrains.marco.photozclone;
+package com.jetbrains.marco.photozclone.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotEmpty;
@@ -11,6 +11,8 @@ public class Photo {
 
     @JsonIgnore
     private byte[] data;
+
+    private String contentType;
 
     public Photo(){
     }
@@ -42,5 +44,13 @@ public class Photo {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 }
