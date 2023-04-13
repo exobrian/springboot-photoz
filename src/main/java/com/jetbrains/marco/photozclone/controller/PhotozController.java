@@ -20,17 +20,17 @@ public class PhotozController{
     }
 
     @GetMapping("/")
-    public String hell(){
+    public String hello(){
         return "Hello World!";
     }
 
     @GetMapping("/photoz")
-    public Collection<Photo> get(){
+    public Iterable<Photo> get(){
         return photozService.get();
     }
 
     @GetMapping("/photoz/{id}")
-    public Photo getPhoto(@PathVariable String id){
+    public Photo getPhoto(@PathVariable Integer id){
         Photo photo = photozService.get(id);
         if (photo == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -39,22 +39,19 @@ public class PhotozController{
     }
 
     @DeleteMapping("/photoz/{id}")
-    public void delete(@PathVariable String id){
-        Photo photo = photozService.remove(id);
-        if (photo == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+    public void delete(@PathVariable Integer id){
+        photozService.remove(id);
     }
 
     @PostMapping("/photoz")
     public Photo create(@RequestPart("data") MultipartFile file) throws IOException {
-        Photo photo = photozService.save(file.getOriginalFilename(), file.getContentType(), file.getBytes());
+        Photo photo = photozService.save(file.getContentType(), file.getBytes(), file.getOriginalFilename());
         return photo;
     }
 
     //BT: Added to see byte code of images
     @GetMapping("/getBytes/{id}")
-    public byte[] getBytes(@PathVariable String id){
+    public byte[] getBytes(@PathVariable Integer id){
         Photo photo = photozService.get(id);
         if (photo == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
